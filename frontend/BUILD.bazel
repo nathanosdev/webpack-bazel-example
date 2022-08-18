@@ -1,0 +1,19 @@
+load("@frontend_npm//webpack-cli:index.bzl", webpack = "webpack_cli")
+
+webpack(
+    name = "bundle",
+    args = [
+        "./$(execpath src/index.ts)",
+        "--config",
+        "$(execpath webpack.config.js)",
+        "-o",
+        "$(@D)",
+    ],
+    data = glob([
+        "src/**",
+    ]) + [
+        "webpack.config.js",
+        "@frontend_npm//:node_modules",
+    ],
+    output_dir = True,
+)
